@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>John Doe · CV numérique interactif</title>
+  <!-- Font Awesome 6 (gratuit, icônes pro) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Fonts : Inter & Playfair Display -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #e0eaf4 0%, #cfdef3 100%);
+      font-family: 'Inter', sans-serif;
+      padding: 2rem 1.5rem;
+      color: #1a2a3f;
+    }
+
+    /* Conteneur principal avec effet carte */
+    .cv-container {
+      max-width: 1050px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 2rem;
+      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+      transition: all 0.2s ease;
+    }
+
+    /* Bandeau téléchargement + en-tête */
+    .action-bar {
+      background: #1e2f41;
+      padding: 0.9rem 2rem;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-download {
+      background: #f7c35c;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 60px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      font-family: 'Inter', sans-serif;
+      color: #1e2f41;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: 0.2s;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .btn-download i {
+      font-size: 1.1rem;
+    }
+
+    .btn-download:hover {
+      background: #ffda85;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+    }
+
+    .share-note {
+      font-size: 0.8rem;
+      color: #cddfed;
+      background: rgba(255,255,240,0.1);
+      padding: 0.3rem 0.9rem;
+      border-radius: 50px;
+    }
+
+    .share-note i {
+      margin-right: 6px;
+    }
+
+    /* Layout principal CV */
+    .cv-grid {
+      display: grid;
+      grid-template-columns: 34% 66%;
+    }
+
+    /* SIDEBAR (gauche) */
+    .sidebar {
+      background: #f8fafd;
+      padding: 2rem 1.8rem;
+      border-right: 1px solid #e2edf2;
+    }
+
+    .profile-pic {
+      text-align: center;
+      margin-bottom: 1.8rem;
+    }
+
+    .avatar {
+      width: 140px;
+      height: 140px;
+      background: linear-gradient(135deg, #2c5a7a, #1e3e58);
+      border-radius: 50%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 22px -8px rgba(0,0,0,0.2);
+      border: 4px solid white;
+    }
+
+    .avatar i {
+      font-size: 4.2rem;
+      color: white;
+      filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
+    }
+
+    .name-large {
+      font-size: 1.7rem;
+      font-weight: 700;
+      font-family: 'Playfair Display', serif;
+      text-align: center;
+      margin-top: 1rem;
+      color: #0f2b3b;
+    }
+
+    .job-tag {
+      text-align: center;
+      background: #e9f0f5;
+      display: inline-block;
+      width: auto;
+      margin: 0.7rem auto 1rem;
+      padding: 0.3rem 1rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #1f5e7e;
+    }
+
+    .info-section {
+      margin: 1.8rem 0;
+    }
+
+    .info-title {
+      font-weight: 700;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #2c5a7a;
+      border-left: 4px solid #f7c35c;
+      padding-left: 12px;
+      margin-bottom: 1rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+      color: #2c3e4e;
+      word-break: break-word;
+    }
+
+    .contact-item i {
+      width: 28px;
+      color: #f7b32b;
+      font-size: 1.1rem;
+      text-align: center;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .skill-tag {
+      background: #e4edf2;
+      padding: 5px 14px;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #1e4a6e;
+    }
+
+    .lang-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .lang-name {
+      font-weight: 500;
+    }
+
+    .lang-level {
+      color: #4d6a7e;
+      font-size: 0.75rem;
+    }
+
+    /* MAIN (droite) */
+    .main-content {
+      padding: 2rem 2rem 2rem 1.8rem;
+      background: white;
+    }
+
+    .section {
+      margin-bottom: 2rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 2px solid #eef2f8;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-header i {
+      font-size: 1.4rem;
+      color: #f7b32b;
+      background: #fef5e3;
+      width: 34px;
+      height: 34px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+    }
+
+    .section-header h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      font-family: 'Playfair Display', serif;
+      color: #1c3e54;
+      margin: 0;
+    }
+
+    .exp-item, .edu-item {
+      margin-bottom: 1.4rem;
+    }
+
+    .exp-title {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #0a2e42;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .exp-company {
+      font-weight: 500;
+      color: #f7b32b;
+      font-size: 0.85rem;
+      margin: 0.2rem 0 0.4rem;
+    }
+
+    .exp-date {
+      font-size: 0.7rem;
+      font-weight: 400;
+      color: #68839b;
+    }
+
+    .exp-desc {
+      font-size: 0.85rem;
+      line-height: 1.4;
+      color: #2d4a64;
+      margin-top: 6px;
+    }
+
+    .profile-text {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: #2b4b66;
+      background: #f9fdfe;
+      padding: 0.8rem 1rem;
+      border-radius: 18px;
+      border-left: 4px solid #f7c35c;
+    }
+
+    hr {
+      margin: 1rem 0;
+      border: 0;
+      height: 1px;
+      background: linear-gradient(to right, #e0eef4, transparent);
+    }
+
+    /* Responsive */
+    @media (max-width: 780px) {
+      .cv-grid {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        border-right: none;
+        border-bottom: 1px solid #e2edf2;
+      }
+      body {
+        padding: 1rem;
+      }
+      .action-bar {
+        justify-content: center;
+      }
+      .main-content {
+        padding: 1.8rem;
+      }
+    }
+
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+        margin: 0;
+      }
+      .action-bar {
+        display: none;
+      }
+      .cv-container {
+        box-shadow: none;
+        border-radius: 0;
+        max-width: 100%;
+      }
+      .sidebar {
+        background: #fafcfd;
+      }
+      .btn-download {
+        display: none;
+      }
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.7rem;
+      padding: 1rem;
+      color: #4c6f8c;
+      background: #ffffffd9;
+      border-top: 1px solid #e0ecf3;
+    }
+  </style>
+</head>
+<body>
+
+<div class="cv-container" id="cvContainer">
+  <!-- Barre d'actions : téléchargement + mention lien unique -->
+  <div class="action-bar">
+    <div class="share-note">
+      <i class="fas fa-link"></i> Lien unique — CV interactif
+    </div>
+    <button class="btn-download" id="downloadPDFBtn">
+      <i class="fas fa-download"></i> Télécharger CV (PDF)
+    </button>
+  </div>
+
+  <!-- Grille CV : infos + contenu principal -->
+  <div class="cv-grid">
+    <!-- COLONNE GAUCHE : profil & contact -->
+    <aside class="sidebar">
+      <div class="profile-pic">
+        <div class="avatar">
+          <i class="fas fa-user-circle"></i>
+        </div>
+        <div class="name-large">Claire MONTIER</div>
+        <div style="text-align: center;">
+          <span class="job-tag"><i class="fas fa-briefcase"></i>  Lead UX Designer & Stratège produit</span>
+        </div>
+      </div>
+
+      <div class="info-section">
+        <div class="info-title">CONTACT</div>
+        <div class="contact-item">
+          <i class="fas fa-phone-alt"></i> <span>+33 6 78 90 12 34</span>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-envelope"></i> <span>claire.montier@cvlink.fr</span>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-map-marker-alt"></i> <span>Lyon, France</span>
+        </div>
+        <div class="contact-item">
+          <i class="fab fa-linkedin"></i> <span>linkedin.com/in/clairemontier</span>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-globe"></i> <span>clairemontier.design</span>
+        </div>
+      </div>
+
+      <div class="info-section">
+        <div class="info-title">COMPÉTENCES CLÉS</div>
+        <div class="skill-tags">
+          <span class="skill-tag">UX Research</span>
+          <span class="skill-tag">Figma / XD</span>
+          <span class="skill-tag">Design System</span>
+          <span class="skill-tag">Atelier design thinking</span>
+          <span class="skill-tag">User Testing</span>
+          <span class="skill-tag">HTML/CSS/JS</span>
+          <span class="skill-tag">Product Strategy</span>
+          <span class="skill-tag">Agile / Scrum</span>
+        </div>
+      </div>
+
+      <div class="info-section">
+        <div class="info-title">LANGUES</div>
+        <div class="lang-item">
+          <span class="lang-name">Français</span>
+          <span class="lang-level">Natif</span>
+        </div>
+        <div class="lang-item">
+          <span class="lang-name">Anglais</span>
+          <span class="lang-level">C1 (TOEIC 960)</span>
+        </div>
+        <div class="lang-item">
+          <span class="lang-name">Espagnol</span>
+          <span class="lang-level">Intermédiaire B1</span>
+        </div>
+      </div>
+
+      <div class="info-section">
+        <div class="info-title">CENTRES D'INTÉRÊT</div>
+        <div class="skill-tags">
+          <span class="skill-tag">🎨 Illustration numérique</span>
+          <span class="skill-tag">🏃‍♀️ Trail & running</span>
+          <span class="skill-tag">📚 UX Writing</span>
+          <span class="skill-tag">🎧 Podcasts tech</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- COLONNE DROITE : expériences, formations, à propos -->
+    <main class="main-content">
+      <!-- Profil / résumé -->
+      <div class="section">
+        <div class="section-header">
+          <i class="fas fa-user-astronaut"></i>
+          <h2>À propos</h2>
+        </div>
+        <div class="profile-text">
+          Designer produit avec 7+ années d'expérience dans la conception d'interfaces centrées utilisateurs. Passionnée par la création de produits digitaux accessibles et performants. J'accompagne les équipes produit de l'idéation jusqu'au suivi des métriques UX, en alliant rigueur analytique et créativité.
+        </div>
+      </div>
+
+      <!-- Expériences professionnelles -->
+      <div class="section">
+        <div class="section-header">
+          <i class="fas fa-briefcase"></i>
+          <h2>Expériences</h2>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-title">
+            <span>Lead UX Designer · Produit digital</span>
+            <span class="exp-date">2022 – Aujourd'hui</span>
+          </div>
+          <div class="exp-company">Studio M · Lyon (full remote)</div>
+          <div class="exp-desc">
+            Pilotage de la refonte UX d'une application SaaS suivie par +120k utilisateurs. Mise en place d’un design system multi-produits, augmentation de la satisfaction utilisateur (CSAT +28%). Animation d'ateliers de co-conception avec les parties prenantes.
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-title">
+            <span>UX/UI Designer senior</span>
+            <span class="exp-date">2019 – 2022</span>
+          </div>
+          <div class="exp-company">Agence Weflow · Paris</div>
+          <div class="exp-desc">
+            Conception d'applications web et mobile pour des clients grands comptes (banque, retail). Réalisation de tests utilisateurs, maquettes interactives, et suivi du développement. Réduction du taux d'abandon de 34% sur un parcours clé.
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-title">
+            <span>Designer produit junior</span>
+            <span class="exp-date">2017 – 2019</span>
+          </div>
+          <div class="exp-company">Startup EdTech · Nantes</div>
+          <div class="exp-desc">
+            Participation à la création d'une plateforme d'apprentissage adaptative. Wireframing, prototypage et intégration front-end. Collaboration avec les développeurs pour assurer la cohérence UI.
+          </div>
+        </div>
+      </div>
+
+      <!-- Formation -->
+      <div class="section">
+        <div class="section-header">
+          <i class="fas fa-graduation-cap"></i>
+          <h2>Formation</h2>
+        </div>
+        <div class="exp-item">
+          <div class="exp-title">
+            <span>Master Design & Innovation</span>
+            <span class="exp-date">2015 – 2017</span>
+          </div>
+          <div class="exp-company">École des Arts Décoratifs, Paris</div>
+          <div class="exp-desc">Mention Bien — Spécialisation design d'interaction et ergonomie cognitive.</div>
+        </div>
+        <div class="exp-item">
+          <div class="exp-title">
+            <span>Licence Information-Communication</span>
+            <span class="exp-date">2012 – 2015</span>
+          </div>
+          <div class="exp-company">Université Lumière Lyon 2</div>
+          <div class="exp-desc">Parcours multimédia, projet de recherche sur l'expérience utilisateur.</div>
+        </div>
+      </div>
+
+      <!-- Certifications supplémentaires -->
+      <div class="section">
+        <div class="section-header">
+          <i class="fas fa-certificate"></i>
+          <h2>Certifications</h2>
+        </div>
+        <div class="skill-tags" style="margin-top: 6px;">
+          <span class="skill-tag">Google UX Design Certificate</span>
+          <span class="skill-tag">Certified Product Manager (Prod Academy)</span>
+          <span class="skill-tag">Accessibility WCAG 2.1</span>
+        </div>
+      </div>
+    </main>
+  </div>
+  <footer>
+    <i class="fas fa-sync-alt"></i> CV interactif — Mise à jour mars 2026 — Disponible en version imprimable
+  </footer>
+</div>
+
+<!-- Librairie html2pdf (pour génération PDF fiable) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+  (function() {
+    const downloadBtn = document.getElementById('downloadPDFBtn');
+    const elementToExport = document.getElementById('cvContainer');
+
+    // Options de génération PDF (haute qualité, margins optimisées)
+    const opt = {
+      margin:        [0.5, 0.5, 0.5, 0.5], // top, right, bottom, left (unit: in)
+      filename:     'Claire_Montier_CV_Numérique.pdf',
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  { scale: 2, letterRendering: true, useCORS: true, logging: false },
+      jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+    };
+
+    // Gestion du téléchargement : capture du contenu CV avec html2pdf
+    function exportPDF() {
+      // Indicateur de chargement (amélioration UX)
+      const originalBtnText = downloadBtn.innerHTML;
+      downloadBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Génération PDF...';
+      downloadBtn.disabled = true;
+
+      // On clone l'élément pour éviter des conflits d'affichage temporaires
+      // mais html2pdf peut travailler directement sur l'élément existant.
+      // On utilise le conteneur principal.
+      html2pdf().set(opt).from(elementToExport).save()
+        .then(() => {
+          downloadBtn.innerHTML = originalBtnText;
+          downloadBtn.disabled = false;
+        })
+        .catch(err => {
+          console.error("Erreur génération PDF : ", err);
+          downloadBtn.innerHTML = originalBtnText;
+          downloadBtn.disabled = false;
+          alert("Une erreur est survenue lors de la création du PDF. Vous pouvez essayer via impression navigateur (Ctrl+P).");
+        });
+    }
+
+    if (downloadBtn) {
+      downloadBtn.addEventListener('click', exportPDF);
+    }
+
+    // Petit bonus : détecter si l'utilisateur souhaite imprimer (ctrl+p) -> on peut adapter mais pas nécessaire
+    // Afficher dans la console que le CV est prêt avec lien unique (dynamique)
+    console.log("CV numérique prêt — lien unique actif : " + window.location.href);
+  })();
+</script>
+
+<!-- Note : ce CV est entièrement fonctionnel avec un lien unique. Le contenu est complet. -->
+</body>
+</html>
